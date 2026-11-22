@@ -1,5 +1,7 @@
 # skills
-# 最后更新日期 11.22
+# 更新日志
+1. 第一次更新日期 11.22
+
 [README.md](https://github.com/user-attachments/files/35229277/README.md)
 # skills
 
