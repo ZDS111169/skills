@@ -22,4 +22,8 @@
 
 ## 触发词速查
 
-见主文件 `SKILL.md` 的「何时触发」表。
+见主文件 [SKILL.md](../SKILL.md) 的「何时触发」表。
+
+## 本文件何时被读
+
+由 `SKILL.md`「何时加载附属资源」一节规定：用户追问原版差异 / STORM vs STORMX / 自增步骤时，Agent 应 Read 本文件。
