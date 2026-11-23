@@ -17,13 +17,18 @@
 
 ## 这是什么
 
-基于开放标准 [Agent Skills](https://agentskills.io/specification)：每个技能是一个文件夹 + `SKILL.md`，教 Agent **按固定流程做事**（调研、澄清问题、方法论……），而不是一次性口头提示。
+技能是一个文件夹加一份 `SKILL.md`。它教助手按固定步骤做事，而不是靠当次聊天临时想起。规范见 [Agent Skills](https://agentskills.io/specification)，Cursor 的挂载方式见 [Cursor Skills](https://cursor.com/docs/skills)。
 
-| 你得到 | 说明  |
+挂上之后：
+
+| 好处  | 说明  |
 | --- | --- |
-| 流程可复用 | 口令 / `/技能名` 即可跑完整步骤 |
-| 多端一份货 | 同一文件夹拷到对应目录，或用 `gh skill install` |
-| 可版本管理 | Git 备份、分享、按需更新 |
+| 口令稳定 | 说对口令就走同一套步骤，不把「自检」这类宽词误当成某个技能 |
+| 少占对话 | 平时只看到技能的名字和一句话；点名之后才读正文 |
+| 脚本跟着走 | 要执行的文件放在该技能的 `scripts/`，下载整夹就能跑 |
+| 可备份 | 本目录就是 Git 仓库，一份总说明加各技能整夹 |
+
+规范没有写死个数。每个技能的名字和 description 每轮都会被看到，所以宜少而准。本库按大约 20 个来收，不要超过 50。再多就合并，或把不常用的改成只能 `/名字` 调用。
 
 仓库：`ZDS111169/skills`
 
@@ -35,18 +40,33 @@
 | --- | --- | --- | --- |
 | **stormx** | 改造版 STORM：五视角调研 → 矛盾图谱 → 简报 → 评审 → 学习链（非斯坦福原版） | `用STORMX方式研究【主题】` | `/stormx` |
 | **5w2h** | 5W2H 把问题 / 立项说清楚，输出可执行陈述 | `用5W2H分析【主题】` | `/5w2h` |
+| **night-self-check** | 通序下班后的分档检查。脚本在本夹 `scripts/`。默认 19:10–次日 07:40 | `夜间自检` / `晚上自检` / `下班自检`。不要只用「自检」 | `/night-self-check` |
+| **author-skill** | 按规范新做一个技能夹，并更新本 README | `按规范做技能` / `写一个 skill` | `/author-skill` |
 
 ```text
 .
-├── README.md
+├── README.md                 # 仓库只有这一份总说明
 ├── stormx/
 │   ├── SKILL.md
-│   └── references/          # 可选附录
-└── 5w2h/
-    └── SKILL.md
+│   └── references/
+├── 5w2h/
+│   └── SKILL.md
+├── night-self-check/
+    ├── SKILL.md
+    ├── schedule.json
+    ├── accepted.txt
+    └── scripts/              # 计划任务执行的就是这里的 ps1
+        ├── install-tasks.ps1
+        └── run-slot.ps1
+└── author-skill/
+    ├── SKILL.md
+    └── references/
+        └── layout.md         # 只在决定目录和字段时读
 ```
 
-约定：文件夹名 = `SKILL.md` 里的 `name:`；上传 / 下载都是**整夹**。
+每增加一个技能，都要改本文件的「已收录」、上面的目录树和文末更新日志。技能夹内不另放 README。
+
+`example-*` 是本地练习，不必上传。`README-upload.md` 是本机上传备忘，公开仓库不必带上。
 
 ---
 
@@ -142,27 +162,35 @@ gh skill install ZDS111169/skills stormx --agent cursor --scope project
 
 | 场景  | 做法  |
 | --- | --- |
-| 手动挂上 | 聊天里输入 `/stormx` 或 `/5w2h` |
-| 口令触发 | 见上表「推荐口令」 |
-| 改完 skill | **新开对话**；仍不生效再重启客户端 |
+| 手动挂上 | 聊天里输入 `/stormx`、`/5w2h`、`/night-self-check`、`/author-skill` |
+| 口令  | 用上表里的整句。夜间那条要说「夜间自检」「晚上自检」或「下班自检」。只说「自检」是在说当前这一轮，不挂夜间技能 |
+| 改完 skill | 新开对话；仍不生效再重启客户端 |
 
-`stormx` / `5w2h` 默认 `disable-model-invocation: true`：避免闲聊误触发，**优先斜杠或明确口令**。
+`stormx`、`5w2h` 设了 `disable-model-invocation: true`，闲聊不会自动挂上，用斜杠或口令。`night-self-check` 和 `author-skill` 靠上面的窄口令命中。
 
 ---
 
 ## 自己加一个
 
-1. 本地建 `新名字/SKILL.md`（`name` 与文件夹一致）
-2. 写清：`description`（做什么 + 何时用）、步骤、输出模板、禁止事项
-3. 整夹放进本仓库根目录（与 `stormx` 同级）
-4. 更新本 README 的「已收录」表 + 更新日志
-5. 自行 commit / push
+按 `/author-skill` 做。要点：
 
-`references/`、`scripts/` 可选；主文件够短就不必建。
+1. 在本目录新建 `新名字/SKILL.md`，`name` 与文件夹一致
+2. 口令写窄，并写明什么情况下不要用
+3. 有 `references/`、`scripts/`、`assets/` 时，在 `SKILL.md` 步骤里点名
+4. 更新本 README 的「已收录」、目录树、更新日志
+5. 带脚本的先跑通，再挂定时任务
+6. 自行 commit / push
 
 ---
 
 ## 更新日志
+
+### 2026-11-23
+
+- 收录 `night-self-check`、`author-skill`
+- 夜间技能口令改为夜间 / 晚上 / 下班自检；单独说「自检」不触发
+- 计划任务 `TongxuNight-env` 已实跑，退出码 0，脚本在技能夹的 `scripts/`
+- 写明技能是什么、挂载的好处、用法，以及大约 20 个、不超过 50 个
 
 ### 2025-11-23
 
