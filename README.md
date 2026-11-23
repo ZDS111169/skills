@@ -44,7 +44,7 @@
 | --- | --- | --- | --- |
 | **stormx** | 改造版 STORM：五视角调研 → 矛盾图谱 → 简报 → 评审 → 学习链（非斯坦福原版） | `用STORMX方式研究【主题】` | `/stormx` |
 | **5w2h** | 5W2H 把问题 / 立项说清楚，输出可执行陈述 | `用5W2H分析【主题】` | `/5w2h` |
-| **night-self-check** | 通序下班后的分档检查。脚本在该夹的 `scripts/`。默认 19:10 至次日 07:40 | `夜间自检`、`晚上自检`、`下班自检` | `/night-self-check` |
+| **night-self-check** | 下班后的分档检查。脚本在该夹的 `scripts/`。默认 19:10 至次日 07:40 | `夜间自检`、`晚上自检`、`下班自检` | `/night-self-check` |
 | **author-skill** | 按规范新做一个技能夹，并更新本 README | `按规范做技能` / `写一个 skill` | `/author-skill` |
 
 ```text
@@ -197,6 +197,7 @@ gh skill install ZDS111169/skills stormx --agent cursor --scope project
 
 - README 多 Agent 适配（Cursor / Claude Code / Codex / Copilot / Gemini …）
 - 安装说明与目录对照表美化
+- STORMX 关联 references子目录，确保挂载上
 
 ### 2025-11-22
 
