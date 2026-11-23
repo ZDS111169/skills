@@ -2,7 +2,7 @@
 # 更新日志
 1. 第一次更新日期 11.22
 
-[README.md](https://github.com/user-attachments/files/35229277/README.md)
+点击此处下载[README.md](https://github.com/user-attachments/files/35229277/README.md)
 # skills
 
 专放各类 **Cursor Agent Skill**（`SKILL.md`）适配包。  
