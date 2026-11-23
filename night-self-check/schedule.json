@@ -1,0 +1,53 @@
+﻿{
+    "note":  "默认是演示时间。改 at 或 repoRoot 之后，重跑本夹 scripts/install-tasks.ps1。",
+    "endBefore":  "08:00",
+    "mysql":  {
+                  "exe":  "C:\\Program Files\\MySQL\\MySQL Server 8.4\\bin\\mysql.exe",
+                  "user":  "root",
+                  "password":  "123456",
+                  "database":  "jsh_erp"
+              },
+    "slots":  [
+                  {
+                      "id":  "env",
+                      "at":  "19:10",
+                      "title":  "环境"
+                  },
+                  {
+                      "id":  "menu",
+                      "at":  "20:10",
+                      "title":  "菜单和权限"
+                  },
+                  {
+                      "id":  "save",
+                      "at":  "21:10",
+                      "title":  "保存路径"
+                  },
+                  {
+                      "id":  "master",
+                      "at":  "22:10",
+                      "title":  "基础资料"
+                  },
+                  {
+                      "id":  "bill",
+                      "at":  "23:10",
+                      "title":  "单据窗口"
+                  },
+                  {
+                      "id":  "review",
+                      "at":  "06:10",
+                      "title":  "复核已改项"
+                  },
+                  {
+                      "id":  "complete",
+                      "at":  "07:10",
+                      "title":  "收录是否齐全"
+                  },
+                  {
+                      "id":  "summary",
+                      "at":  "07:40",
+                      "title":  "汇总"
+                  }
+              ],
+    "repoRoot":  "C:\\Users\\AI_AGENT\\Desktop\\erp-workbench"
+}
