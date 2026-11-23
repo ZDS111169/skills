@@ -17,18 +17,22 @@
 
 ## 这是什么
 
-技能是一个文件夹加一份 `SKILL.md`。它教助手按固定步骤做事，而不是靠当次聊天临时想起。规范见 [Agent Skills](https://agentskills.io/specification)，Cursor 的挂载方式见 [Cursor Skills](https://cursor.com/docs/skills)。
+[Agent Skills](https://agentskills.io/home) 的定义是：一种轻量、开放的格式，用来给 AI 代理扩展专门知识和工作流程。
+
+原文：Agent Skills are a lightweight, open format for extending AI agent capabilities with specialized knowledge and workflows.
+
+官方对它怎么起作用的说明是：把流程性知识，以及公司、团队、个人的上下文，打包成可移植、可版本管理的文件夹，代理按需加载。一个技能就是这样一个文件夹。其中必须有 `SKILL.md`（名称、何时使用、具体步骤），需要时再带上 `scripts/`（可执行脚本）、`references/`（说明）和 `assets/`（模板或图片）。Cursor 的挂载方式见 [Cursor Skills](https://cursor.com/docs/skills)。
 
 挂上之后：
 
 | 好处  | 说明  |
 | --- | --- |
-| 口令稳定 | 说对口令就走同一套步骤，不把「自检」这类宽词误当成某个技能 |
-| 少占对话 | 平时只看到技能的名字和一句话；点名之后才读正文 |
-| 脚本跟着走 | 要执行的文件放在该技能的 `scripts/`，下载整夹就能跑 |
-| 可备份 | 本目录就是 Git 仓库，一份总说明加各技能整夹 |
+| 专门知识可复用 | 多步流程写成固定步骤，换一次对话仍然一样 |
+| 按需加载 | 平时只看到技能的名字和一句话；对上任务才读正文 |
+| 整夹可带走 | 脚本和说明在同一个文件夹里，复制或安装后就能用 |
+| 跨产品 | 同一份技能可用于 Cursor、Claude Code、Codex、Copilot、Gemini 等支持该格式的代理 |
 
-规范没有写死个数。每个技能的名字和 description 每轮都会被看到，所以宜少而准。本库按大约 20 个来收，不要超过 50。再多就合并，或把不常用的改成只能 `/名字` 调用。
+规范没有写死个数。每个技能的名字和 description 每轮都会被看到，所以宜少而准。建议大约 20 个，不要超过 50。再多就合并，或把不常用的改成只能用 `/名字` 调用。
 
 仓库：`ZDS111169/skills`
 
@@ -40,7 +44,7 @@
 | --- | --- | --- | --- |
 | **stormx** | 改造版 STORM：五视角调研 → 矛盾图谱 → 简报 → 评审 → 学习链（非斯坦福原版） | `用STORMX方式研究【主题】` | `/stormx` |
 | **5w2h** | 5W2H 把问题 / 立项说清楚，输出可执行陈述 | `用5W2H分析【主题】` | `/5w2h` |
-| **night-self-check** | 通序下班后的分档检查。脚本在本夹 `scripts/`。默认 19:10–次日 07:40 | `夜间自检` / `晚上自检` / `下班自检`。不要只用「自检」 | `/night-self-check` |
+| **night-self-check** | 通序下班后的分档检查。脚本在该夹的 `scripts/`。默认 19:10 至次日 07:40 | `夜间自检`、`晚上自检`、`下班自检` | `/night-self-check` |
 | **author-skill** | 按规范新做一个技能夹，并更新本 README | `按规范做技能` / `写一个 skill` | `/author-skill` |
 
 ```text
@@ -65,8 +69,6 @@
 ```
 
 每增加一个技能，都要改本文件的「已收录」、上面的目录树和文末更新日志。技能夹内不另放 README。
-
-`example-*` 是本地练习，不必上传。`README-upload.md` 是本机上传备忘，公开仓库不必带上。
 
 ---
 
@@ -163,7 +165,7 @@ gh skill install ZDS111169/skills stormx --agent cursor --scope project
 | 场景  | 做法  |
 | --- | --- |
 | 手动挂上 | 聊天里输入 `/stormx`、`/5w2h`、`/night-self-check`、`/author-skill` |
-| 口令  | 用上表里的整句。夜间那条要说「夜间自检」「晚上自检」或「下班自检」。只说「自检」是在说当前这一轮，不挂夜间技能 |
+| 口令  | 用上表里的整句。夜间检查请说「夜间自检」「晚上自检」或「下班自检」 |
 | 改完 skill | 新开对话；仍不生效再重启客户端 |
 
 `stormx`、`5w2h` 设了 `disable-model-invocation: true`，闲聊不会自动挂上，用斜杠或口令。`night-self-check` 和 `author-skill` 靠上面的窄口令命中。
@@ -188,9 +190,8 @@ gh skill install ZDS111169/skills stormx --agent cursor --scope project
 ### 2026-11-23
 
 - 收录 `night-self-check`、`author-skill`
-- 夜间技能口令改为夜间 / 晚上 / 下班自检；单独说「自检」不触发
-- 计划任务 `TongxuNight-env` 已实跑，退出码 0，脚本在技能夹的 `scripts/`
-- 写明技能是什么、挂载的好处、用法，以及大约 20 个、不超过 50 个
+- 按 Agent Skills 的定义补充「这是什么」
+- 夜间检查的口令为「夜间自检」「晚上自检」「下班自检」
 
 ### 2025-11-23
 
