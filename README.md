@@ -46,6 +46,7 @@
 | **5w2h** | 5W2H 把问题 / 立项说清楚，输出可执行陈述 | `用5W2H分析【主题】` | `/5w2h` |
 | **night-self-check** | 下班后的分档检查。脚本在该夹的 `scripts/`。默认 19:10 至次日 07:40 | `夜间自检`、`晚上自检`、`下班自检` | `/night-self-check` |
 | **author-skill** | 按规范新做一个技能夹，并更新本 README | `按规范做技能` / `写一个 skill` | `/author-skill` |
+| **batch-family** | 同构界面/模块整族改；ERP·MES·小程序·网页·上位机通用 | `批量改` / `批量改此处`；单点用 `单独改` | `/batch-family` |
 
 ```text
 .
@@ -56,16 +57,20 @@
 ├── 5w2h/
 │   └── SKILL.md
 ├── night-self-check/
-    ├── SKILL.md
-    ├── schedule.json
-    ├── accepted.txt
-    └── scripts/              # 计划任务执行的就是这里的 ps1
-        ├── install-tasks.ps1
-        └── run-slot.ps1
-└── author-skill/
+│   ├── SKILL.md
+│   ├── schedule.json
+│   ├── accepted.txt
+│   └── scripts/              # 计划任务执行的就是这里的 ps1
+│       ├── install-tasks.ps1
+│       └── run-slot.ps1
+├── author-skill/
+│   ├── SKILL.md
+│   └── references/
+│       └── layout.md         # 只在决定目录和字段时读
+└── batch-family/
     ├── SKILL.md
     └── references/
-        └── layout.md         # 只在决定目录和字段时读
+        └── families.md       # 归族样例，拿不准时再读
 ```
 
 每增加一个技能，都要改本文件的「已收录」、上面的目录树和文末更新日志。技能夹内不另放 README。
@@ -164,11 +169,11 @@ gh skill install ZDS111169/skills stormx --agent cursor --scope project
 
 | 场景  | 做法  |
 | --- | --- |
-| 手动挂上 | 聊天里输入 `/stormx`、`/5w2h`、`/night-self-check`、`/author-skill` |
-| 口令  | 用上表里的整句。夜间检查请说「夜间自检」「晚上自检」或「下班自检」 |
+| 手动挂上 | 聊天里输入 `/stormx`、`/5w2h`、`/night-self-check`、`/author-skill`、`/batch-family` |
+| 口令  | 用上表里的整句。夜间检查请说「夜间自检」「晚上自检」或「下班自检」。整族改说「批量改」或「批量改此处」；单点说「单独改」或「单量修改」 |
 | 改完 skill | 新开对话；仍不生效再重启客户端 |
 
-`stormx`、`5w2h` 设了 `disable-model-invocation: true`，闲聊不会自动挂上，用斜杠或口令。`night-self-check` 和 `author-skill` 靠上面的窄口令命中。
+`stormx`、`5w2h` 设了 `disable-model-invocation: true`，闲聊不会自动挂上，用斜杠或口令。`night-self-check`、`author-skill`、`batch-family` 靠上面的窄口令命中。
 
 ---
 
@@ -186,6 +191,11 @@ gh skill install ZDS111169/skills stormx --agent cursor --scope project
 ---
 
 ## 更新日志
+
+### 2026-11-26
+
+- 收录 `batch-family`（跨 ERP/MES/小程序/网页/上位机的整族批量改）
+- 口令：`批量改`、`批量改此处`；单点：`单独改`、`单量修改`
 
 ### 2026-11-23
 
